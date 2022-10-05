@@ -230,7 +230,29 @@ def findcycle_directed_dfs():
             if containscycle(i,visited,dfs_vis):
                 return True
     return False
-if findcycle_directed_dfs():
-    print("contains cycle")
-else:
-    print("no cycle detected")
+#if findcycle_directed_dfs():
+#    print("contains cycle")
+#else:
+#    print("no cycle detected")
+
+graph={}
+for i in range(len(adjlist)):
+    graph[i] = adjlist[i]
+
+print(graph)
+def topdfsutil(s,v,visited):
+    visited[v] = 1
+    for i in graph[v]:
+        if not visited[i]:
+            topdfsutil(s,i,visited)
+    s.append(v)
+def topsort_dfs():
+    visited = [0]*(len(graph))
+    s = collections.deque()
+    for i in range(len(visited)):
+        if not visited[i]:
+            topdfsutil(s,i,visited)
+    while s:
+        print(s.pop())
+
+#topsort_dfs()
