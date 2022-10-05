@@ -209,3 +209,28 @@ def bipartite_dfs():
                 return
 
 #bipartite_dfs()
+def containscycle(v,visited,dfs_vis):
+    visited[v] = 1
+    dfs_vis[v] = 1
+    for i in graph[v]:
+        if not visited[i]:
+            if containscycle(i,visited,dfs_vis):
+                return True
+            #dfs_vis[i] = 0
+        elif dfs_vis[i]:
+            return True
+    dfs_vis[v] = 0
+    return False
+
+def findcycle_directed_dfs():
+    visited = [0]* (len(graph)+1)
+    dfs_vis = [0]* (len(graph)+1)
+    for i in range(1,len(visited)):
+        if not visited[i]:
+            if containscycle(i,visited,dfs_vis):
+                return True
+    return False
+if findcycle_directed_dfs():
+    print("contains cycle")
+else:
+    print("no cycle detected")
